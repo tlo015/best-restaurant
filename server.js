@@ -1,10 +1,16 @@
 // Dependencies for EXPRESS
 const EXPRESS = require("express");
+const BODYPARSER = require ("body-parser");
+const PATH = require("path");
 //const HTTP = require("http");
 
 // Initializing server
 const APP = EXPRESS();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+// Sets up the Express app to handle data parsing
+APP.use(BODYPARSER.urlencoded({ extended: true }));
+APP.use(BODYPARSER.json());
 
 //function handleRequests(request, response) {
 //	const SERVER = http.createServer(handleRequests);
@@ -21,16 +27,16 @@ const RESERVATION = {
 
 // Routes
 APP.get("/", function(req, res) {
-	res.send("HOT RESTURANT");
+	res.sendFile(PATH.join(__dirname, "home.html"));
 });
 
-//APP.get("/", function(req, res) {
-//	res.send("HOT RESTURANT");
-//};
+APP.get("/view", function(req, res) {
+	res.sendFile(PATH.join(__dirname, "tables.html"));
+});
 
-//APP.get("/", function(req, res) {
-//	res.send("HOT RESTURANT");
-//};
+APP.get("/add", function(req, res) {
+	res.sendFile(PATH.join(__dirname, "reserve.html"));
+});
 
 // Listener
 APP.listen(PORT, function() {
