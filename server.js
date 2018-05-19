@@ -12,7 +12,7 @@ const PORT = 3000;
 //	const SERVER = http.createServer(handleRequests);
 //};
 
-const RESERVATIONSS = [
+const RESERVATIONS = [
     {
     routeName: "rogue",
     name: "Rogue",
@@ -41,16 +41,16 @@ APP.get("/", function(req, res) {
 	res.send("HOT RESTURANT");
 });
 
-APP.get("/reserve", function(req, res) {
-	res.json(RESERVATIONSS);
-});
+//APP.get("/reserve", function(req, res) {
+//	res.json(RESERVATIONS);
+//});
 
 //APP.get("/", function(req, res) {
 //	res.send(HOT RESTURANT);
 //};
 
 APP.get("/all", function(req, res) {
-	res.json(RESERVATIONSS);
+	res.json(RESERVATIONS);
 });
 
 APP.get("/api/:reservations?", function(req, res) {
@@ -73,11 +73,15 @@ APP.get("/api/:reservations?", function(req, res) {
 APP.post("/api/new", function(req, res) {
 	const NEWRESERVATIONS = req.body;
 
+	NEWRESERVATIONS.routeNAME = NEWRESERVATIONS.name.replace(/\s+/g, "").toLowerCase();
+
 	console.log(NEWRESERVATIONS);
+	
 	RESERVATIONS.push(NEWRESERVATIONS);
 
 	res.json(NEWRESERVATIONS);
 });
+
 
 // jQuery
 // Name form data 
